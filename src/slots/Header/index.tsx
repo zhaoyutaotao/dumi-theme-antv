@@ -92,6 +92,7 @@ export type HeaderProps = {
       apiKey: string;
       indexName: string;
       appId: string;
+      sort?: string[];
     };
   };
   announcement?: {
