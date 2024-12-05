@@ -129,7 +129,6 @@ export default function ThemeAntVContextWrapper() {
 
   // watch the `examples` folder
   api.addTmpGenerateWatcherPaths(() => [path.resolve(process.cwd(), 'examples')]);
-  console.log('api', api);
 
   // extends dumi internal tech stack, for customize previewer props
   api.registerTechStack(() => new AntVReactTechStack());
