@@ -32,6 +32,13 @@ export default defineConfig({
     showSpecTab: true, // 是否在 demo 页展示API文档
     themeSwitcher: 'g2',
     es5: false,
+
+    petercat: {
+      show: false,
+      // 以下配置仅在 show 为 true 时生效
+      // token 获取方式：https://github.com/petercat-ai/petercat/blob/main/docs/guides/quick_%20assistant_start_cn.md#token-%E8%8E%B7%E5%8F%96
+      token: 'your_token',
+    },
     version,
     versions: {
       // 历史版本以及切换下拉菜单
