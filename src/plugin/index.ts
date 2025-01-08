@@ -1,6 +1,7 @@
 import type { IApi } from 'dumi';
 import { winPath } from 'dumi/plugin-utils';
 import * as path from 'path';
+import { AntVReactTechStack } from './antVReactTechStack';
 import { getExamplePaths, getExamplesPageTopics } from './examples';
 import rehypeObservable from './rehypeObservable';
 
@@ -128,4 +129,7 @@ export default function ThemeAntVContextWrapper() {
 
   // watch the `examples` folder
   api.addTmpGenerateWatcherPaths(() => [path.resolve(process.cwd(), 'examples')]);
+
+  // extends dumi internal tech stack, for customize previewer props
+  api.registerTechStack(() => new AntVReactTechStack());
 };

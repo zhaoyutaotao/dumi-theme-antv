@@ -84,6 +84,14 @@ export default defineConfig({
         order: 1,
       },
       {
+        slug: 'docs/plots',
+        title: {
+          zh: '组件',
+          en: 'Components',
+        },
+        order: 2,
+      },
+      {
         slug: 'examples',
         title: {
           zh: '图表示例',
