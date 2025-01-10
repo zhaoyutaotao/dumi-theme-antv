@@ -3,22 +3,24 @@ import React from 'react';
 import { styled } from 'styled-components';
 import { Contributors } from './Contributors';
 import { EditButton } from './EditButton';
+import { PageFeedback } from './PageFeedback';
+import { SectionFeedback } from './SectionFeedback';
 
 const StyledWrapper = styled.div`
-  margin-top: 32px;
+  margin-top: 40px;
 `;
 
 export const Feedback: React.FC = () => {
   const meta = useRouteMeta();
 
-  if (meta.frontmatter.readonly) {
-    return null;
-  }
+  const editable = !meta.frontmatter.readonly;
 
   return (
     <StyledWrapper>
-      <EditButton style={{ transform: 'translateX(-12px)' }} />
-      <Contributors filename={meta.frontmatter.filename} />
+      {editable && <EditButton style={{ transform: 'translateX(-12px)' }} />}
+      {editable && <Contributors filename={meta.frontmatter.filename} />}
+      <SectionFeedback />
+      <PageFeedback />
     </StyledWrapper>
   );
 };
