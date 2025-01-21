@@ -27,10 +27,8 @@ import '@petercatai/assistant/style';
 import styles from './index.module.less';
 
 export type HeaderProps = {
-  /** 主分支名，默认为 'main'*/
-  branch?: string;
-  /** 官网子包相对于仓库根目录的路径 */
-  siteRelativePath?: string;
+  /** 官网子包所在路径 */
+  sitePackagePath?: string;
   pathPrefix?: string;
   /** 子标题 */
   subTitle?: React.ReactNode;
@@ -100,6 +98,8 @@ export type HeaderProps = {
       sort?: string[];
     };
   };
+  /** 是否开启用户反馈功能 */
+  feedback?: boolean;
   /** petercat 配置 */
   petercat?: {
     token: string;
