@@ -24,6 +24,7 @@ import type { IC } from '../../types';
 
 import { Assistant } from '@petercatai/assistant';
 import '@petercatai/assistant/style';
+import { determineUserType } from '../../utils/user';
 import styles from './index.module.less';
 
 export type HeaderProps = {
@@ -105,6 +106,9 @@ export type HeaderProps = {
     token: string;
     show: boolean;
   };
+  /** 是否显示 links 研发小蜜 */
+  links?: boolean;
+  /** 页面头部公告 */
   announcement?: {
     title: IC;
     icon: string;
@@ -622,6 +626,7 @@ export const Header: React.FC<Partial<HeaderProps>> = (props) => {
     docsearchOptions,
     announcement,
     petercat,
+    links,
   } = themeConfig;
   const searchOptions = {
     docsearchOptions,
@@ -655,11 +660,41 @@ export const Header: React.FC<Partial<HeaderProps>> = (props) => {
     announcement,
     petercat,
   };
+  const [isInternalUser, setIsInternalUser] = useState<boolean | undefined>(undefined);
+  const isPetercatShow = petercat?.show;
+
+  useEffect(() => {
+    const checkUserType = async () => {
+      const result = await determineUserType();
+      setIsInternalUser(result);
+    };
+
+    checkUserType();
+  }, []);
+
+  useEffect(() => {
+    let script: HTMLScriptElement | null = null;
+
+    if (isInternalUser && links) {
+      script = document.createElement('script');
+      script.src = 'https://links.alipay.com/widgetInit/67a96a296b6fa80490bdf892';
+      script.async = true;
+      document.body.appendChild(script);
+    }
+
+    return () => {
+      if (script) {
+        document.body.removeChild(script);
+      }
+    };
+  }, [isInternalUser]);
 
   return (
     <>
       <HeaderComponent {...Object.assign({}, headerProps, props)} />
-      {petercat?.show && <Assistant token={petercat?.token} apiDomain="https://api.petercat.ai" />}
+      {isPetercatShow && isInternalUser === false && (
+        <Assistant token={petercat?.token} apiDomain="https://api.petercat.ai" />
+      )}
     </>
   );
 };
