@@ -24,11 +24,16 @@ function sourceOf(block: Element) {
 }
 
 function blockOf() {
-  return Array.from(document.querySelectorAll('.ob-codeblock .dumi-default-source-code'));
+  if (typeof document !== undefined && document) {
+    const blocks = Array.from(document.querySelectorAll('.ob-codeblock .dumi-default-source-code'));
+    return blocks;
+  }
+  return [];
 }
 
 export function usePreview(options = {}, select) {
   const key = select + ',' + blockOf().length;
+
   useEffect(() => {
     const blocks = blockOf();
 

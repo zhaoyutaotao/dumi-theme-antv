@@ -1,32 +1,33 @@
 import { VerticalAlignTopOutlined } from '@ant-design/icons';
 import { BackTop, Layout } from 'antd';
 import { useRouteMeta } from 'dumi';
-import React, { type PropsWithChildren } from 'react';
+import React, { lazy, type PropsWithChildren } from 'react';
 import { useMedia } from 'react-use';
 import readingTime from 'reading-time';
-import { useMenu } from '../../hooks/useMenu';
+import ClientOnly from '../../common/ClientOnly';
+import InViewSuspense from '../../common/InViewSuspense';
 import { ContentTable } from '../ContentTable';
 import { Feedback } from '../Feedback';
-import { PageFeedback } from '../Feedback/PageFeedback';
 import styles from './index.module.less';
 import { PrevAndNext } from './PrevAndNext';
 import ReadingTime from './ReadingTime';
-import { usePreview } from './usePreview';
+
+const PageFeedback = lazy(() => import('../Feedback/PageFeedback'));
+const ObPreview = lazy(() => import('./ObPreview'));
 
 export const Main: React.FC<PropsWithChildren> = ({ children }) => {
   const meta = useRouteMeta();
   const text = meta.texts.reduce((prev, next) => prev + next.value, '');
   const { time } = readingTime(text);
 
-  const [, selectedKey] = useMenu();
-
   const is991Wide = useMedia('(min-width: 991.99px)', true);
   const showToc = is991Wide && meta.frontmatter.showToc !== false;
 
-  usePreview({}, selectedKey);
-
   return (
     <>
+      <ClientOnly>
+        <ObPreview />
+      </ClientOnly>
       <Layout.Content className={styles.content}>
         <div className={styles.main}>
           <h1 className={styles.contentTitle}>{meta.frontmatter.title}</h1>
@@ -34,14 +35,12 @@ export const Main: React.FC<PropsWithChildren> = ({ children }) => {
             <ReadingTime readingTime={time} className={styles.readtime} />
           </div>
           <div className={styles.markdown}>{children}</div>
-          <Feedback />
+          <div style={{ marginTop: '40px' }}>
+            <Feedback />
+          </div>
           <PrevAndNext />
         </div>
-        <BackTop
-          style={{
-            right: 24,
-          }}
-        >
+        <BackTop style={{ right: 24 }}>
           <div className={styles.backTop}>
             <VerticalAlignTopOutlined />
           </div>
@@ -50,7 +49,9 @@ export const Main: React.FC<PropsWithChildren> = ({ children }) => {
       {showToc && (
         <Layout.Sider theme="light" width={260}>
           <div className={styles.toc}>
-            <PageFeedback />
+            <InViewSuspense>
+              <PageFeedback />
+            </InViewSuspense>
             <ContentTable />
           </div>
         </Layout.Sider>

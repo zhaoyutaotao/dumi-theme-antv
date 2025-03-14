@@ -1,14 +1,14 @@
 import { Helmet, useLocale, useRouteMeta, useSiteData } from 'dumi';
 import React from 'react';
 
-interface SEOProps {
+interface CommonHelmetProps {
   titleSuffix?: string;
   title?: string;
   description?: string;
   meta?: any[];
 }
 
-const SEO: React.FC<SEOProps> = ({
+const CommonHelmet: React.FC<CommonHelmetProps> = ({
   titleSuffix,
   title: propTitle,
   description: propDescription,
@@ -25,10 +25,13 @@ const SEO: React.FC<SEOProps> = ({
 
   const defaultMeta = [
     { name: `description`, content: description },
+
+    // "og" 全称为 Open Graph，用于指定页面在社交媒体上的展示效果
     { property: `og:title`, content: title },
     { property: `og:description`, content: description },
     { property: `og:image`, content: 'https://gw.alipayobjects.com/zos/antfincdn/FLrTNDvlna/antv.png' },
     { property: `og:type`, content: `website` },
+
     { name: `twitter:card`, content: `summary` },
     { name: `twitter:title`, content: title },
     { name: `twitter:description`, content: description },
@@ -45,4 +48,4 @@ const SEO: React.FC<SEOProps> = ({
   );
 };
 
-export default SEO;
+export default CommonHelmet;

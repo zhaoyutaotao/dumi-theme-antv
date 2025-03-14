@@ -1,20 +1,14 @@
-import { FormattedMessage, useSiteData } from 'dumi';
+import { useIntl, useSiteData } from 'dumi';
 import { get, isArray, size } from 'lodash-es';
 import React from 'react';
-import SEO from '../../common/SEO';
-import { Cases } from '../../slots/Cases';
-import { Companies } from '../../slots/Companies';
-import { Detail } from '../../slots/Detail';
-import { Features } from '../../slots/Features';
-import { Footer } from '../../slots/Footer';
-import { Header } from '../../slots/Header';
+import CommonHelmet from '../../common/CommonHelmet';
+import { ic } from '../../slots/hooks';
+import { Cases } from './components/Cases';
+import { Companies } from './components/Companies';
+import { Detail } from './components/Detail';
+import { Features } from './components/Features';
 
-/**
- * Index 路由下的入口
- * - 获取数据
- * - 组合 slots 下的木偶组件
- */
-export const Index = () => {
+const Index = () => {
   const { themeConfig } = useSiteData();
   const {
     title,
@@ -30,6 +24,7 @@ export const Index = () => {
     style,
     id,
   } = themeConfig;
+  const { formatMessage } = useIntl();
 
   const detailProps = {
     githubUrl,
@@ -50,18 +45,18 @@ export const Index = () => {
 
   return (
     <>
-      <SEO title={title} titleSuffix="AntV" />
-      <Header />
+      <CommonHelmet title={ic(title)} titleSuffix="AntV" />
       {size(detail) ? <Detail {...detailProps} /> : null}
       {size(featuresProps.features) ? <Features {...featuresProps} /> : null}
       {size(cases) ? <Cases {...casesProps} /> : null}
       {size(companies) ? (
         <Companies
-          title={<FormattedMessage id={isAntVSite ? '2000+ 公司正在使用' : '感谢信赖'} />}
+          title={formatMessage({ id: isAntVSite ? '2000+ 公司正在使用' : '感谢信赖' })}
           companies={companies}
         />
       ) : null}
-      <Footer />
     </>
   );
 };
+
+export default Index;

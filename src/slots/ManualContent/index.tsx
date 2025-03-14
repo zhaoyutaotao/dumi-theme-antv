@@ -1,5 +1,6 @@
 import { Layout } from 'antd';
-import React, { Suspense, type PropsWithChildren } from 'react';
+import React, { type PropsWithChildren } from 'react';
+import CommonHelmet from '../../common/CommonHelmet';
 import styles from './index.module.less';
 import { Main } from './Main';
 import { Sidebar } from './Sidebar';
@@ -7,10 +8,9 @@ import { Sidebar } from './Sidebar';
 export const ManualContent: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <Layout hasSider className={styles.layout}>
+      <CommonHelmet />
       <Sidebar />
-      <Suspense fallback={null}>
-        <Main>{children}</Main>
-      </Suspense>
+      <Main>{children}</Main>
     </Layout>
   );
 };

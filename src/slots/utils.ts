@@ -1,13 +1,6 @@
 import { Status, TreeNode } from '../types';
 import { icWithLocale } from './hooks';
 
-/**
- * 统一去掉中英文前缀
- */
-export function getCurrentPathname(): string {
-  return window.location.pathname.replace('/zh/', '/').replace('/en/', '/');
-}
-
 export async function ping(): Promise<Status> {
   const timeout = new Promise<Status>((resolve) => {
     setTimeout(() => {

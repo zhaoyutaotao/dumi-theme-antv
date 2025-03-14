@@ -44,43 +44,6 @@ export default (api: IApi) => {
     return memo;
   });
 
-  const pages = [
-    {
-      id: 'dumi-theme-antv-homepage',
-      absPath: '/',
-    },
-    {
-      id: 'dumi-theme-antv-en-homepage',
-      absPath: '/en/',
-    },
-    {
-      id: 'dumi-theme-antv-zh-homepage',
-      absPath: '/zh/',
-    },
-    // Examples gallery page.
-    {
-      id: 'dumi-theme-antv-example-list-zh',
-      absPath: '/examples',
-      file: `${PAGES_DIR}/Examples`,
-    },
-    {
-      id: 'dumi-theme-antv-example-list-lang',
-      absPath: '/:language/examples',
-      file: `${PAGES_DIR}/Examples`,
-    },
-    // single example preview page.
-    {
-      id: 'dumi-theme-antv-single-example-zh',
-      absPath: '/examples/:topic/:example',
-      file: `${PAGES_DIR}/Example`,
-    },
-    {
-      id: 'dumi-theme-antv-single-example-lang',
-      absPath: '/:language/examples/:topic/:example',
-      file: `${PAGES_DIR}/Example`,
-    },
-  ];
-
   api.modifyConfig((memo) => {
     // 配置额外的 remark 插件，用于处理 Markdown 语法树的编译
     memo.extraRemarkPlugins = memo.themeConfig.feedback ? [remarkFeedback] : [];
@@ -128,12 +91,59 @@ export default function ThemeAntVContextWrapper() {
 
   // add custom pages
   api.modifyRoutes((routes) => {
-    pages.forEach((page) => {
-      routes[page.id] = {
-        id: page.id,
-        path: page.absPath.slice(1),
-        absPath: page.absPath,
-        file: page.file,
+    const extraRoutesList = [
+      {
+        id: 'dumi-theme-antv-homepage',
+        absPath: '/',
+        path: '',
+        file: `${PAGES_DIR}/Index`,
+      },
+      {
+        id: 'dumi-theme-antv-homepage-en',
+        absPath: '/en/',
+        path: 'en',
+        file: `${PAGES_DIR}/Index`,
+      },
+      {
+        id: 'dumi-theme-antv-homepage-zh',
+        absPath: '/zh/',
+        path: 'zh',
+        file: `${PAGES_DIR}/Index`,
+      },
+      // Examples gallery page.
+      {
+        id: 'dumi-theme-antv-example-list-zh',
+        absPath: '/examples',
+        path: 'examples',
+        file: `${PAGES_DIR}/Examples`,
+      },
+      {
+        id: 'dumi-theme-antv-example-list-lang',
+        absPath: '/:language/examples',
+        path: ':language/examples',
+        file: `${PAGES_DIR}/Examples`,
+      },
+      // single example preview page.
+      {
+        id: 'dumi-theme-antv-single-example-zh',
+        absPath: '/examples/:topic/:example',
+        path: 'examples/:topic/:example',
+        file: `${PAGES_DIR}/Example`,
+      },
+      {
+        id: 'dumi-theme-antv-single-example-lang',
+        absPath: '/:language/examples/:topic/:example',
+        path: ':language/examples/:topic/:example',
+        file: `${PAGES_DIR}/Example`,
+      },
+    ];
+
+    extraRoutesList.forEach((itemRoute) => {
+      routes[itemRoute.id] = {
+        id: itemRoute.id,
+        path: itemRoute.path,
+        absPath: itemRoute.absPath,
+        file: itemRoute.file,
         parentId: 'DocLayout',
         meta: MOCK_META,
       };
@@ -141,7 +151,6 @@ export default function ThemeAntVContextWrapper() {
 
     // replace default 404
     routes['404'].file = `${PAGES_DIR}/404`;
-    routes['404'].meta = MOCK_META;
 
     return routes;
   });
