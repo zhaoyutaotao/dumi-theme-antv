@@ -2,13 +2,7 @@ import { defineConfig } from 'dumi';
 import { repository, version } from './package.json';
 
 export default defineConfig({
-  ssr:
-    process.env.NODE_ENV === 'production'
-      ? {
-          builder: 'mako',
-        }
-      : false,
-  mako: {},
+  ...(process.env.NODE_ENV === 'production' ? { ssr: { builder: 'webpack', mako: false } } : { ssr: false, mako: {} }),
   locales: [
     { id: 'zh', name: '中文' },
     { id: 'en', name: 'English' },
@@ -412,7 +406,6 @@ export default defineConfig({
     memo.delete('cache');
     return memo;
   },
-  plugins: [],
   links: [],
   scripts: [],
 });

@@ -4,12 +4,14 @@ import styles from './index.module.less';
 /**
  * Loading
  */
-const Loading = () => (
+const Loading = ({ style }: { style?: React.CSSProperties }) => (
   <div
     style={{
       position: 'relative',
       height: '100%',
       width: '100%',
+      minHeight: '200px',
+      ...style,
     }}
   >
     <div className={styles.loading}>
