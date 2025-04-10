@@ -135,6 +135,12 @@ export default function ThemeAntVContextWrapper() {
         file: `${PAGES_DIR}/Examples`,
       },
       {
+        id: 'dumi-theme-antv-example-list-en',
+        absPath: '/en/examples',
+        path: 'en/examples',
+        file: `${PAGES_DIR}/Examples`,
+      },
+      {
         id: 'dumi-theme-antv-example-list-lang',
         absPath: '/:language/examples',
         path: ':language/examples',
