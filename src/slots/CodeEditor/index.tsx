@@ -100,7 +100,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
   const locale = useLocale();
   const { themeConfig } = useSiteData();
   const { es5 = true, showSpecTab = false } = themeConfig;
-  const { extraLib = '' } = themeConfig.playground;
+  const { extraLib = '', playgroundBeforeExecute = '' } = themeConfig.playground;
   // 编辑器两个 tab，分别是代码和数据
   const [data, setData] = useState(null);
   const [spec, setSpec] = useState(null);
@@ -154,6 +154,14 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
 
   const executeCode = useCallback(
     debounce((v: string) => {
+      try {
+        const playgroundBeforeExecuteFunction = new Function('containerId', playgroundBeforeExecute);
+        playgroundBeforeExecuteFunction(containerId);
+      } catch (e) {
+        reportError(e);
+        // 执行出错，不影响后面流程
+      }
+
       if (currentEditorTab !== EDITOR_TABS.JAVASCRIPT) return;
       if (!v) return;
 
