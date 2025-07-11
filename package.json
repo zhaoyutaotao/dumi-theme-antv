@@ -1,19 +1,19 @@
 {
-  "name": "@antv/dumi-theme-antv",
-  "version": "0.7.9",
+  "name": "dumi-theme-antv",
+  "version": "0.1.0",
   "description": "AntV website theme based on dumi2.",
   "keywords": [
     "dumi",
     "dumi-theme",
     "dumi-theme-antv"
   ],
-  "homepage": "https://github.com/antvis/dumi-theme-antv#readme",
+  "homepage": "https://github.com/zhaoyutaotao/dumi-theme-antv",
   "bugs": {
-    "url": "https://github.com/antvis/dumi-theme-antv/issues"
+    "url": "https://github.com/zhaoyutaotao/dumi-theme-antv/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/antvis/dumi-theme-antv"
+    "url": "https://github.com/zhaoyutaotao/dumi-theme-antv"
   },
   "license": "MIT",
   "types": "dist/types.d.ts",
@@ -160,6 +160,7 @@
   },
   "authors": [
     "dumi",
-    "antv"
+    "antv",
+    "zhaoyt"
   ]
 }
