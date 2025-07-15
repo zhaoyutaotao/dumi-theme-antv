@@ -2,7 +2,7 @@
   "version": "0.2.1",
   "repository": {
     "type": "git",
-    "url": "https://github.com/antvis/dumi-theme-antv"
+    "url": "https://github.com/zhaoyutaotao/dumi-theme-antv"
   },
   "scripts": {
     "build": "dumi build",

@@ -1,5 +1,4 @@
 import chalk from 'chalk';
-import Critters from 'critters-webpack-plugin';
 import type { IApi } from 'dumi';
 import { winPath } from 'dumi/plugin-utils';
 import * as path from 'path';
@@ -16,16 +15,6 @@ const MOCK_META = { frontmatter: { title: 'mock-meta' }, texts: [], toc: [] };
 export default (api: IApi) => {
   api.describe({ key: `dumi-theme:${require('../../package.json').name}` });
 
-  // use critters to extract key css into html head
-  api.chainWebpack((config) => {
-    config.plugin('critters').use(Critters, [
-      {
-        preload: 'js-lazy',
-        inlineThreshold: 10240,
-      },
-    ]);
-  });
-
   api.modifyDefaultConfig((memo) => {
     // use passive mode for code blocks of markdown, to avoid dumi compile theme as react component
     memo.resolve.codeBlockMode = 'passive';
@@ -36,24 +25,8 @@ export default (api: IApi) => {
     // add exportStatic .html
     memo.exportStatic.extraRoutePaths = getExamplePaths();
 
-    // mfsu
-    memo.mfsu = false;
     // 部署到 gh-pages 后，打开白屏，怀疑是 gzip 导致，所以换一个混淆器
     memo.jsMinifier = 'terser';
-
-    // 网站 favicon
-    memo.favicons = ['https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*7svFR6wkPMoAAAAAAAAAAAAADmJ7AQ/original'];
-
-    memo.headScripts = [
-      { src: 'https://ur.alipay.com/tracert_a369.js', async: true },
-      {
-        content: `
-          window.TracertCmdCache=window.TracertCmdCache||[];var t=window.Tracert||{_isRenderInit:!0,call:function(){window.TracertCmdCache.push(arguments)}},f=["call","start","config","logPv","info","err","click","expo","pageName","pageState","time","timeEnd","parse","checkExpo","stringify","report","set","before"];for(let i=0;i<f.length;i++){(function(fn){t[fn]=function(){var a=[],l=arguments.length;for (var j=0;j<l;j++) {a.push(arguments[j])}a.unshift(fn);window.TracertCmdCache.push(a)}})(f[i])}window.Tracert=t;window._to=window._to||{};
-          window.Tracert.start({});
-        `,
-        charset: 'utf-8',
-      },
-    ];
 
     // observable demo
     memo.extraRehypePlugins = [rehypeObservable];

@@ -1,5 +1,5 @@
 import { DownOutlined, LinkOutlined } from '@ant-design/icons';
-import { Dropdown, Menu } from 'antd';
+import { Dropdown } from 'antd';
 import cx from 'classnames';
 import { Link, useLocale } from 'dumi';
 import { size } from 'lodash-es';
@@ -123,25 +123,27 @@ export const Navs: React.FC<NavProps> = ({ navs, path }) => {
             <Dropdown
               className={styles.ecoSystems}
               placement="bottom"
-              overlay={
-                <Menu>
-                  {nav.dropdownItems.map(({ name, url, target }) => {
-                    const displayName = name[locale.id];
-                    return (
-                      <Menu.Item key={url}>
-                        {target === '_blank' || url.startsWith('http') ? (
-                          <a href={url} target="_blank" rel="noreferrer">
-                            {displayName}
-                            <LinkOutlined />
-                          </a>
-                        ) : (
-                          <Link to={url}>{displayName}</Link>
-                        )}
-                      </Menu.Item>
-                    );
-                  })}
-                </Menu>
-              }
+              menu={{
+                items: nav?.dropdownItems?.map(({ name, url, target }, index) => {
+                  const displayName = name[locale.id];
+                  return {
+                    label: (
+                      <span
+                        onClick={() => {
+                          if (target === '_blank' || url.startsWith('http')) {
+                            window.open(url, '_blank');
+                          } else {
+                            <Link to={url}>{displayName}</Link>;
+                          }
+                        }}
+                      >
+                        {displayName}
+                      </span>
+                    ),
+                    key: url,
+                  };
+                }),
+              }}
             >
               <span>
                 {title}

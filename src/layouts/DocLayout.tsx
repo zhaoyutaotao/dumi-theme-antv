@@ -17,19 +17,6 @@ export default () => {
   const { themeConfig, loading } = useSiteData();
   const { navs } = themeConfig;
 
-  // 打印控制台文案
-  useEffect(() => {
-    console.log('%cAntV 让数据栩栩如生', 'color:#5B7102; font-size: 20px;'),
-      console.log('%c新一代数据可视化解决方案', 'color:#5B7102;'),
-      console.log('--------------------------'),
-      console.log(
-        '%c关注我们的微信公众号 %c"数据可视化 AntV"%c，获取我们团队最新的进展、动态、分享，也欢迎加入我们！',
-        'color: red',
-        'color: pink',
-        'color: red',
-      );
-  }, []);
-
   const outlet = useOutlet();
   const location = useLocation();
   const { pathname, hash } = location;
