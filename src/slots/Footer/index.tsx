@@ -1,7 +1,6 @@
-import { GithubOutlined, QuestionCircleOutlined, WeiboOutlined, ZhihuOutlined } from '@ant-design/icons';
-import { default as classnames, default as cx } from 'classnames';
+import { GithubOutlined, QuestionCircleOutlined, ZhihuOutlined } from '@ant-design/icons';
+import { default as classnames } from 'classnames';
 import { FormattedMessage, useLocale, useSiteData } from 'dumi';
-import { omit } from 'lodash-es';
 import { default as RCFooter, FooterProps as RcFooterProps } from 'rc-footer';
 import React from 'react';
 
@@ -27,7 +26,7 @@ const Footer: React.FC<FooterProps> = (props) => {
   const { themeConfig } = useSiteData();
   const locale = useLocale();
   const lang = locale.id;
-  const { footerTheme = 'dark' } = themeConfig;
+  const { footerTheme = 'dark', footer, footerLinks } = themeConfig;
   const { theme = footerTheme } = restProps;
 
   const getColumns = () => {
@@ -89,7 +88,12 @@ const Footer: React.FC<FooterProps> = (props) => {
           openExternal: true,
         },
         {
-          icon: <img src="https://mdn.alipayobjects.com/huamei_4qpv3u/afts/img/iH6wQKX4WCYAAAAAAAAAAAAAeocTAQFr/original" alt="weavefox" />,
+          icon: (
+            <img
+              src="https://mdn.alipayobjects.com/huamei_4qpv3u/afts/img/iH6wQKX4WCYAAAAAAAAAAAAAeocTAQFr/original"
+              alt="weavefox"
+            />
+          ),
           title: 'WeaveFox',
           description: <FormattedMessage id="WeaveFox 智能研发技术社区" />,
           url: 'https://www.yuque.com/weavefox/blog',
@@ -168,7 +172,12 @@ const Footer: React.FC<FooterProps> = (props) => {
           openExternal: true,
         },
         {
-          icon: <img src="https://mdn.alipayobjects.com/huamei_4qpv3u/afts/img/iH6wQKX4WCYAAAAAAAAAAAAAeocTAQFr/original" alt="weavefox" />,
+          icon: (
+            <img
+              src="https://mdn.alipayobjects.com/huamei_4qpv3u/afts/img/iH6wQKX4WCYAAAAAAAAAAAAAeocTAQFr/original"
+              alt="weavefox"
+            />
+          ),
           title: 'WeaveFox',
           description: <FormattedMessage id="前端智能研发" />,
           url: 'https://weavefox.alipay.com',
@@ -180,49 +189,27 @@ const Footer: React.FC<FooterProps> = (props) => {
     return [col1, col2, col3, more];
   };
 
+  if (footer === false) return <div style={{ padding: 10 }}></div>;
+
+  const defaultBottom = `© Copyright ${new Date().getFullYear()} Ant Group Co., Ltd.. 备案号：京ICP备15032932号-38`;
+
   return (
     <RCFooter
       maxColumnsPerRow={5}
       theme={theme}
-      columns={columns || getColumns()}
+      columns={footerLinks || getColumns()}
       className={classnames(styles.footer, className, {
         [styles.light]: theme === 'light',
+        [styles.isShowColumns]: footerLinks?.length === 0,
         [styles.withMenu]: isDynamicFooter,
       })}
       bottom={
-        bottom || (
-          <>
-            <div
-              className={cx(styles.bottom, {
-                [styles.light]: theme === 'light',
-              })}
-            >
-              {theme === 'light' ? (
-                `© Copyright ${new Date().getFullYear()} Ant Group Co., Ltd..备案号：京ICP备15032932号-38`
-              ) : (
-                <>
-                  <div>
-                    <a href="https://weibo.com/antv2017" target="_blank" rel="noopener noreferrer">
-                      <WeiboOutlined />
-                    </a>
-                    <a href="https://zhuanlan.zhihu.com/aiux-antv" target="_blank" rel="noopener noreferrer">
-                      <ZhihuOutlined />
-                    </a>
-                    <a href="https://github.com/antvis" target="_blank" rel="noopener noreferrer">
-                      <GithubOutlined />
-                    </a>
-                    <a href={`${rootDomain}/${lang}/about`}>{<FormattedMessage id="关于我们" />}</a>
-                  </div>
-                  <div>
-                    © {new Date().getFullYear()} Made with ❤ by <a href="https://xtech.antfin.com/">AntV</a>
-                  </div>
-                </>
-              )}
-            </div>
-          </>
-        )
+        <span
+          dangerouslySetInnerHTML={{
+            __html: footer || defaultBottom,
+          }}
+        />
       }
-      {...omit(restProps, ['githubUrl'])}
     />
   );
 };
