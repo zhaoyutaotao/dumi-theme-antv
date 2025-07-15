@@ -63,10 +63,7 @@ export type HeaderProps = {
   /** 是否二维码 */
   showWxQrcode?: boolean;
   /** 自定义 logo */
-  logo?: {
-    img?: React.ReactNode;
-    link?: string;
-  };
+  logo?: string | false;
   siteUrl?: string;
   /** github 仓库地址 */
   githubUrl?: string;
@@ -232,17 +229,8 @@ const HeaderComponent: React.FC<HeaderProps> = ({
     setPopupMenuVisible(!popupMenuVisible);
   };
 
-  const { img, link } = {
-    img: (
-      <img
-        src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*A-lcQbVTpjwAAAAAAAAAAAAADmJ7AQ/original"
-        alt="logo"
-      />
-    ),
-    link: '',
-    ...logo,
-  };
-
+  const logImgUrl =
+    logo || 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*A-lcQbVTpjwAAAAAAAAAAAAADmJ7AQ/original';
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -585,16 +573,16 @@ const HeaderComponent: React.FC<HeaderProps> = ({
       )}
       <div className={cx(styles.container)}>
         <div className={styles.left}>
-          <h1>
-            <a href={siteUrl[lang] ? siteUrl[lang] : siteUrl}>{img}</a>
-          </h1>
+          {logo !== false && (
+            <h1>
+              <a href={pathname.startsWith('/en') ? '/en' : '/'}>{<img src={logImgUrl} />}</a>
+            </h1>
+          )}
+          {logo !== false && !isAntVHome && subTitle && <span className={styles.divider} />}
           {!isAntVHome && subTitle && (
-            <>
-              <span className={styles.divider} />
-              <h2 className={styles.subProduceName}>
-                <a href={pathname.startsWith('/en') ? '/en' : '/'}>{subTitle}</a>
-              </h2>
-            </>
+            <h2 className={styles.subProduceName}>
+              <a href={pathname.startsWith('/en') ? '/en' : '/'}>{subTitle}</a>
+            </h2>
           )}
           {showSearch && !isAntVHome && <Search />}
         </div>
@@ -610,6 +598,7 @@ const HeaderComponent: React.FC<HeaderProps> = ({
 const Header: React.FC<Partial<HeaderProps>> = (props) => {
   const { themeConfig } = useSiteData() as any;
   const {
+    logo,
     title,
     siteUrl,
     githubUrl,
@@ -642,6 +631,7 @@ const Header: React.FC<Partial<HeaderProps>> = (props) => {
   const lang = useLocale().id;
 
   const headerProps = {
+    logo,
     subTitle: icWithLocale(title, lang),
     subTitleHref,
     githubUrl,
