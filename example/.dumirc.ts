@@ -238,25 +238,25 @@ export default defineConfig({
         en: 'dumi-theme-antv·Theme Pack',
       },
       description: {
-        zh: '基于 dumi2 封装，提供灵活多变的 slots 插槽，抽取大量配置，一秒搭建 AntV 的各个技术栈官网。',
-        en: 'Based on the dumi2 package, it provides flexible and changeable slots, extracts a large number of configurations, and builds the official website of each technology stack of AntV in one second.',
+        zh: 'AntV 官网风格类似的 dumi2 主题插件',
+        en: 'dumi2 theme similar to antdV website',
       },
       image: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*wo_LToatmbwAAAAAAAAAAABkARQnAQ',
       buttons: [
         {
           text: {
-            zh: '示例官网',
-            en: 'Example Site',
+            zh: '开始使用',
+            en: 'Getting Started',
           },
-          link: `https://github.com/antvis/antvis.github.io`,
+          link: '/manual/quickstart',
         },
         {
           text: {
-            zh: '迁移手册',
-            en: 'Migration Manual',
+            zh: '图表示例',
+            en: 'Playground',
           },
-          link: `https://www.yuque.com/antv/gpzzmb/cyczx0`,
           type: 'primary',
+          link: '/examples',
         },
       ],
     },
@@ -392,6 +392,8 @@ export default defineConfig({
     },
     // 站点地图配置
     sitemap: {},
+    // footerLinks: [],
+    // footer: false,
   },
   analytics: {
     // google analytics 的 key (GA 4)
