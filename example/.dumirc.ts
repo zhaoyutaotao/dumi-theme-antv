@@ -1,7 +1,11 @@
 import { defineConfig } from 'dumi';
 import { repository, version } from './package.json';
 
+const isProduction  = process.env.NODE_ENV === 'production'
+
 export default defineConfig({
+  base: isProduction ? '/dumi-theme-antv/' : '/',
+  publicPath: isProduction ? '/dumi-theme-antv/' : '/',
   mfsu: false,
   ssr: false,
   locales: [
