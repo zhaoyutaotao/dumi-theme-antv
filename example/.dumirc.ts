@@ -1,7 +1,7 @@
 import { defineConfig } from 'dumi';
 import { repository, version } from './package.json';
 
-const isProduction  = process.env.NODE_ENV === 'production'
+const isProduction = process.env.NODE_ENV === 'production';
 
 export default defineConfig({
   base: isProduction ? '/dumi-theme-antv/' : '/',
@@ -82,7 +82,6 @@ export default defineConfig({
           zh: '教程',
           en: 'Tutorials',
         },
-        order: 2,
       },
       {
         slug: 'docs/api',
@@ -90,7 +89,6 @@ export default defineConfig({
           zh: 'API',
           en: 'API',
         },
-        order: 1,
       },
       {
         slug: 'docs/plots',
@@ -98,7 +96,6 @@ export default defineConfig({
           zh: '组件',
           en: 'Components',
         },
-        order: 2,
       },
       {
         slug: 'examples',
@@ -106,7 +103,6 @@ export default defineConfig({
           zh: '图表示例',
           en: 'Examples',
         },
-        order: 0,
       },
       {
         title: {
@@ -122,7 +118,6 @@ export default defineConfig({
             url: 'https://github.com/umijs/dumi',
           },
         ],
-        order: 0,
       },
     ],
     ecosystems: [
@@ -174,16 +169,6 @@ export default defineConfig({
           en: 'Quick Reference for Plotting Properties',
         },
         order: 2,
-      },
-    ],
-    tutorials: [
-      {
-        slug: 'manual/about',
-        title: {
-          zh: '关于',
-          en: 'About',
-        },
-        order: 1,
       },
     ],
     examples: [
@@ -384,6 +369,90 @@ export default defineConfig({
         img: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*TgV-RZDODJIAAAAAAAAAAABkARQnAQ',
       },
     ],
+    /** 底部连接 */
+    footerLinks: [
+      {
+        title: '相关资源',
+        items: [
+          {
+            title: 'Ant Design Pro',
+            url: 'https://pro.ant.design/',
+            openExternal: true,
+          },
+          {
+            title: 'Ant Design Mobile',
+            url: 'https://mobile.ant.design/',
+            openExternal: true,
+          },
+          {
+            title: 'Kitchen',
+            url: 'https://kitchen.alipay.com/',
+            description: 'Sketch 工具集',
+          },
+        ],
+      },
+      {
+        title: '社区',
+        items: [
+          {
+            title: 'Ant Design Pro',
+            url: 'https://pro.ant.design/',
+            openExternal: true,
+          },
+          {
+            title: 'Ant Design Mobile',
+            url: 'https://mobile.ant.design/',
+            openExternal: true,
+          },
+          {
+            title: 'Kitchen',
+            url: 'https://kitchen.alipay.com/',
+            description: 'Sketch 工具集',
+          },
+        ],
+      },
+      {
+        title: '帮助',
+        items: [
+          {
+            title: 'Ant Design Pro',
+            url: 'https://pro.ant.design/',
+            openExternal: true,
+          },
+          {
+            title: 'Ant Design Mobile',
+            url: 'https://mobile.ant.design/',
+            openExternal: true,
+          },
+          {
+            title: 'Kitchen',
+            url: 'https://kitchen.alipay.com/',
+            description: 'Sketch 工具集',
+          },
+        ],
+      },
+      {
+        icon: 'https://gw.alipayobjects.com/zos/rmsportal/nBVXkrFdWHxbZlmMbsaH.svg',
+        title: '更多产品',
+        items: [
+          {
+            icon: 'https://gw.alipayobjects.com/zos/rmsportal/XuVpGqBFxXplzvLjJBZB.svg',
+            title: '语雀',
+            url: 'https://yuque.com',
+            description: '知识创作与分享工具',
+            openExternal: true,
+          },
+          {
+            icon: 'https://gw.alipayobjects.com/zos/rmsportal/uHocHZfNWZOdsRUonZNr.png',
+            title: '云凤蝶',
+            url: 'https://yunfengdie.com',
+            description: '中台建站平台',
+            openExternal: true,
+          },
+        ],
+      },
+    ],
+    footer: `© Copyright ${new Date().getFullYear()} Ant Group Co., Ltd.. 备案号：京ICP备15032932号-38`,
     // 代码编辑器设置
     editor: {
       size: 0.4, // 代码区占比
@@ -396,8 +465,6 @@ export default defineConfig({
     },
     // 站点地图配置
     sitemap: {},
-    // footerLinks: [],
-    footer: `© Copyright ${new Date().getFullYear()} Ant Group Co., Ltd.. 备案号：京ICP备15032932号-38`
   },
   analytics: {
     // google analytics 的 key (GA 4)
