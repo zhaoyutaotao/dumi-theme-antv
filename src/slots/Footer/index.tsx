@@ -1,6 +1,7 @@
 import { GithubOutlined, QuestionCircleOutlined, ZhihuOutlined } from '@ant-design/icons';
 import { default as classnames } from 'classnames';
 import { FormattedMessage, useLocale, useSiteData } from 'dumi';
+import { cloneDeep } from 'lodash-es';
 import { default as RCFooter, FooterProps as RcFooterProps } from 'rc-footer';
 import React from 'react';
 
@@ -189,15 +190,28 @@ const Footer: React.FC<FooterProps> = (props) => {
     return [col1, col2, col3, more];
   };
 
-  if (footer === false) return <div style={{ padding: 10 }}></div>;
+  const getFooterLinks = (links) => {
+    if (Array.isArray(links)) {
+      links.forEach((item) => {
+        const iconUrl = item.icon;
+        if (item.icon) {
+          item.icon = <img src={iconUrl} alt="" />;
+        }
+        if (Array.isArray(item.items)) {
+          getFooterLinks(item.items);
+        }
+      });
+    }
+    return links;
+  };
 
-  const defaultBottom = `© Copyright ${new Date().getFullYear()} Ant Group Co., Ltd.. 备案号：京ICP备15032932号-38`;
+  if (footer === false) return <div style={{ padding: 10 }}></div>;
 
   return (
     <RCFooter
       maxColumnsPerRow={5}
       theme={theme}
-      columns={footerLinks || getColumns()}
+      columns={getFooterLinks(cloneDeep(footerLinks)) || getColumns()}
       className={classnames(styles.footer, className, {
         [styles.light]: theme === 'light',
         [styles.isShowColumns]: footerLinks?.length === 0,
