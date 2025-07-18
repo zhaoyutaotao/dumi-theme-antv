@@ -206,7 +206,7 @@ const Footer: React.FC<FooterProps> = (props) => {
       bottom={
         <span
           dangerouslySetInnerHTML={{
-            __html: footer || defaultBottom,
+            __html: footer,
           }}
         />
       }

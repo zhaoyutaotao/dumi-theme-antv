@@ -397,7 +397,7 @@ export default defineConfig({
     // 站点地图配置
     sitemap: {},
     // footerLinks: [],
-    // footer: false,
+    footer: `© Copyright ${new Date().getFullYear()} Ant Group Co., Ltd.. 备案号：京ICP备15032932号-38`
   },
   analytics: {
     // google analytics 的 key (GA 4)
